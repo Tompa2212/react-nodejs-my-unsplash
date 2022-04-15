@@ -16,6 +16,10 @@ export default function Gallery({ images, numOfColumns }) {
     return arr;
   }, [images, numOfColumns]);
 
+  if (!images.length) {
+    return <h2>No images, for your search value...</h2>;
+  }
+
   return (
     <Wrapper>
       {threeColumnImages.map((imageColumn, index) => (

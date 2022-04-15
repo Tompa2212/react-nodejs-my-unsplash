@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { variables } from "../../styles/styled-variables";
 
-export default function SearchInput() {
+export default function SearchInput({ value, onChange }) {
   return (
     <Wrapper className="d-flex">
       <label className="d-flex" htmlFor="search">
@@ -14,6 +14,9 @@ export default function SearchInput() {
         name="search"
         id="search"
         placeholder="Search by label"
+        value={value}
+        onChange={onChange}
+        autoComplete="off"
       />
     </Wrapper>
   );

@@ -2,18 +2,27 @@ import styled from "styled-components";
 import { variables } from "../../styles/styled-variables";
 import { Modal, DeleteForm } from "..";
 import { useState } from "react";
+import { useAuth } from "../../context/auth";
 
 const Image = ({ image }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    user: {
+      user: { id },
+    },
+  } = useAuth();
 
-  const { img_desc, img_url } = image;
+  const { img_desc, img_url, user_id } = image;
 
   return (
     <>
       <Wrapper>
         <img src={img_url} alt="slika" />
         <div className="img-actions">
-          <button className="btn" onClick={() => setIsModalOpen(true)}>
+          <button
+            className={id === user_id ? "btn" : "disabled"}
+            onClick={() => setIsModalOpen(true)}
+          >
             delete
           </button>
           <p>{img_desc}</p>
@@ -22,7 +31,7 @@ const Image = ({ image }) => {
       {isModalOpen && (
         <Modal
           setOpen={setIsModalOpen}
-          component={<DeleteForm setIsModalOpen={setIsModalOpen} />}
+          content={<DeleteForm setIsModalOpen={setIsModalOpen} />}
         />
       )}
     </>
@@ -36,6 +45,11 @@ const Wrapper = styled.figure`
   border-radius: 2.4rem;
   overflow: hidden;
   position: relative;
+
+  .disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
 
   &:hover .img-actions {
     opacity: 1;
@@ -78,6 +92,7 @@ const Wrapper = styled.figure`
 
     p {
       color: ${variables.$white};
+      justify-self: flex-end;
     }
   }
 `;

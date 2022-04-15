@@ -2,6 +2,7 @@ import {
   GET_IMAGES_BEGIN,
   GET_IMAGES_SUCCESS,
   GET_IMAGES_ERROR,
+  SEARCH_IMAGES,
 } from "../actions";
 
 const images_reducer = (state, action) => {
@@ -13,7 +14,7 @@ const images_reducer = (state, action) => {
     return {
       ...state,
       images_loading: false,
-      images: [...state.images, action.payload],
+      images: [action.payload],
     };
   }
 
@@ -21,7 +22,11 @@ const images_reducer = (state, action) => {
     return { ...state, images_error: true, images_loading: false };
   }
 
-  return { ...state };
+  if (action.type === SEARCH_IMAGES) {
+    return { ...state, searchText: action.payload };
+  }
+
+  return state;
 };
 
 export default images_reducer;

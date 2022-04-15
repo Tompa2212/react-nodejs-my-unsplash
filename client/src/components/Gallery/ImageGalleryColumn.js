@@ -3,10 +3,15 @@ import styled from "styled-components";
 import { Image } from "..";
 
 const ImageGalleryColumn = ({ images }) => {
+  if (!images) {
+    return null;
+  }
+
   return (
     <Wrapper>
-      {images.length &&
-        images.map((image) => <Image key={image._id} image={image} />)}
+      {images.map((image) => (
+        <Image key={image._id} image={image} />
+      ))}
     </Wrapper>
   );
 };

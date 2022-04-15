@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { variables } from "../styles/styled-variables";
 import useClickOutside from "../hooks/useClickOutside";
 
-export default function Modal({ component, setOpen }) {
+export default function Modal({ content, setOpen }) {
   const modalRef = useRef();
 
   const onClickOutside = () => {
@@ -15,7 +15,7 @@ export default function Modal({ component, setOpen }) {
   return (
     <Wrapper>
       <div ref={modalRef} className="content">
-        {component}
+        {content}
       </div>
     </Wrapper>
   );

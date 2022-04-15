@@ -4,6 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap");
@@ -17,51 +19,13 @@ body {
   font-size: 1.6rem;
   font-family: "Noto Sans", sans-serif;
   color: $textColor;
+  
 }
 
 .container {
   width: 92%;
-  max-width: 128rem;
+  max-width: 148rem;
   margin: 0 auto;
-}
-
-.btn {
-  cursor: pointer;
-  display: block;
-  padding: 1rem;
-  color: $white;
-  border: transparent;
-  border-radius: 1.2rem;
-  font-size: inherit;
-  font-family: inherit;
-  transition: transform 100ms ease;
-  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    transform: translateY(2px);
-  }
-
-  &--green {
-    background: $btnGreen;
-    color: $white;
-  }
-
-  &--red {
-    background: $btnRed;
-    color: $white;
-  }
-
-  &--cancel {
-    background: transparent;
-    box-shadow: none;
-    color: $textColorLight;
-  }
-
-  &--red--outline {
-    background: transparent;
-    color: $btnRed;
-    border: 1px solid $btnRed;
-  }
 }
 
 .d-flex {
@@ -74,7 +38,3 @@ p {
   line-height: 1.5;
 }
 
-.font-inherit {
-  font-family: inherit;
-  font-size: inherit;
-}

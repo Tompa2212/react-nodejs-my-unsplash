@@ -1,7 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function TextInput({ id, name, label, placeholder, type }) {
+export default function TextInput({
+  id,
+  name,
+  label,
+  placeholder,
+  type,
+  value,
+  onChange,
+}) {
   return (
     <>
       <label htmlFor={id}>{label}</label>
@@ -11,6 +19,8 @@ export default function TextInput({ id, name, label, placeholder, type }) {
         placeholder={placeholder}
         type={type || "text"}
         autoComplete={type === "password" ? "new-password" : "off"}
+        value={value}
+        onChange={onChange}
       />
     </>
   );

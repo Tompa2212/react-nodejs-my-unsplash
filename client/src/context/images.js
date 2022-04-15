@@ -1,16 +1,14 @@
 import React, { useContext, useReducer, useEffect, useCallback } from "react";
 import reducer from "../reducer/images";
-import {
-  GET_IMAGES_BEGIN,
-  GET_IMAGES_ERROR,
-  GET_IMAGES_SUCCESS,
-} from "../actions";
+import { GET_IMAGES_BEGIN, GET_IMAGES_ERROR, GET_IMAGES_SUCCESS } from "../actions";
 import axios from "axios";
 import { useAuth } from "./auth";
 
+const base_url = "http://localhost:3000/api/v1/unsplash/images";
 const ImagesContext = React.createContext();
 
 const initialState = {
+  searchText: "",
   images_loading: false,
   images_error: false,
   images: [],
@@ -43,11 +41,15 @@ export const ImagesProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    fetchImages("http://localhost:3000/api/v1/unsplash/images");
-  }, [fetchImages]);
+    if (state.searchText) {
+      fetchImages(`${base_url}?label=${state.searchText}`);
+    } else {
+      fetchImages(base_url);
+    }
+  }, [fetchImages, state.searchText]);
 
   return (
-    <ImagesContext.Provider value={{ ...state, fetchImages }}>
+    <ImagesContext.Provider value={{ ...state, dispatch }}>
       {children}
     </ImagesContext.Provider>
   );

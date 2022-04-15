@@ -71,6 +71,7 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  console.log(state);
   return (
     <AuthContext.Provider value={{ ...state, loginUser, url, signOut }}>
       {children}

@@ -16,7 +16,7 @@ const determineNumOfColumns = (width) => {
 
 export default function Main() {
   const { images } = useImages();
-  const [numOfColumns, setNumOfColumns] = useState(
+  const [numOfColumns, setNumOfColumns] = useState(() =>
     determineNumOfColumns(window.innerWidth)
   );
 
@@ -27,18 +27,14 @@ export default function Main() {
   useEffect(() => {
     const resizeEvent = window.addEventListener("resize", debouncedResizeEvent);
 
-    return () => document.removeEventListener("resize", resizeEvent);
+    return () => window.removeEventListener("resize", resizeEvent);
   }, [debouncedResizeEvent]);
 
   return (
     <main>
       {images.map((imageBlock, index) => {
         return (
-          <Gallery
-            images={imageBlock}
-            numOfColumns={numOfColumns}
-            key={index}
-          />
+          <Gallery images={imageBlock} numOfColumns={numOfColumns} key={index} />
         );
       })}
     </main>

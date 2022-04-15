@@ -13,9 +13,7 @@ const getImages = async (req, res, next) => {
       queryObject["$text"] = { $search: label };
     }
 
-    const images = await Images.find(queryObject)
-      .limit(21)
-      .sort({ createdAt: -1 });
+    const images = await Images.find(queryObject).limit(21).sort({ createdAt: -1 });
 
     console.log(images);
 
@@ -28,6 +26,8 @@ const getImages = async (req, res, next) => {
 const uploadImage = async (req, res, next) => {
   try {
     const { userId } = req.user;
+
+    console.log(userId);
 
     const image = await Images.create({ ...req.body, user_id: userId });
     res.status(StatusCodes.CREATED).json({ image });

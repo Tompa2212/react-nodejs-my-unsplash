@@ -43,7 +43,7 @@ export default function Login() {
               id="username"
               value={loginInfo.username}
               name="username"
-              handler={handleChange}
+              onChange={handleChange}
             />
             <FormInput
               type="password"
@@ -51,14 +51,10 @@ export default function Login() {
               id="password"
               value={loginInfo.password}
               name="password"
-              handler={handleChange}
+              onChange={handleChange}
             />
             <div className="submit-cont">
-              <button
-                type="submit"
-                className="font-inherit"
-                onClick={handleSubmit}
-              >
+              <button type="submit" className="font-inherit" onClick={handleSubmit}>
                 Login
               </button>
               <p>

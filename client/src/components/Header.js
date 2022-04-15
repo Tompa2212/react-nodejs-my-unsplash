@@ -1,31 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDebouncedValue } from "../hooks/useDebouncedValue";
 import { SearchInput, Modal, UploadForm } from ".";
+import { Link } from "react-router-dom";
 import unsplash_logo from "../images/unsplash_logo.svg";
 import styled from "styled-components";
+import { variables } from "../styles/styled-variables";
+import { useImages } from "../context/images";
+import { useAuth } from "../context/auth";
 
-const Header = (props) => {
+const Header = () => {
+  const { dispatch } = useImages();
+  const { signOut } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
+  const debouncedValue = useDebouncedValue(searchValue, 300);
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  useEffect(() => {
+    if (debouncedValue.length >= 3 || debouncedValue.length === 0) {
+      dispatch({ type: "SEARCH_IMAGES", payload: debouncedValue });
+    }
+  }, [debouncedValue, dispatch]);
+
   return (
     <>
       <Wrapper>
+        <div className="search">
+          <img src={unsplash_logo} alt="unsplash logo" />
+          <SearchInput value={searchValue} onChange={handleChange} />
+        </div>
         <nav className="d-flex">
-          <div className="d-flex">
-            <img src={unsplash_logo} alt="unsplash logo" />
-            <SearchInput />
-          </div>
-          <ul>
+          <ul className="d-flex nav-links">
             <li>
-              <a href="#">All Images</a>
+              <Link to="/" className="nav-link">
+                All Images
+              </Link>
             </li>
             <li>
-              <a href="#">My Images</a>
+              <a href="#" className="nav-link">
+                My Images
+              </a>
             </li>
             <li>
-              <a href="#">Sign Out</a>
+              <button onClick={signOut} className="btn btn--sign-out">
+                Sign out
+              </button>
             </li>
           </ul>
           <button
             className="btn btn--green"
+            style={{ alignSelf: "center" }}
             onClick={() => setIsModalOpen(true)}
           >
             Add a photo
@@ -35,7 +63,7 @@ const Header = (props) => {
       {isModalOpen && (
         <Modal
           setOpen={setIsModalOpen}
-          component={<UploadForm setIsModalOpen={setIsModalOpen} />}
+          content={<UploadForm setIsModalOpen={setIsModalOpen} />}
         />
       )}
     </>
@@ -46,11 +74,13 @@ export default Header;
 
 const Wrapper = styled.header`
   padding: 2rem 0rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
 
-  /* @media screen and (min-width: 60rem) {
-    display: grid;
-    grid-template-columns: auto 1fr;
+  .search {
+    display: flex;
+    gap: 1rem;
     align-items: center;
-    column-gap: 3rem;
-  } */
+  }
 `;

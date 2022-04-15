@@ -2,14 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { variables } from "../../styles/styled-variables";
 
-export default function FormInput({
-  type,
-  placeholder,
-  id,
-  name,
-  value,
-  handler,
-}) {
+export default function FormInput({ type, placeholder, id, name, value, onChange }) {
   return (
     <Wrapper>
       <Input
@@ -17,7 +10,7 @@ export default function FormInput({
         placeholder={placeholder || ""}
         name={name}
         value={value}
-        onChange={handler}
+        onChange={onChange}
         id={id}
       />
     </Wrapper>
