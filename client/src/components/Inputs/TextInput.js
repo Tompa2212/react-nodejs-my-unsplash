@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function TextInput({
+export const TextInput = ({
   id,
   name,
   label,
@@ -9,7 +9,7 @@ export default function TextInput({
   type,
   value,
   onChange,
-}) {
+}) => {
   return (
     <>
       <label htmlFor={id}>{label}</label>
@@ -24,7 +24,7 @@ export default function TextInput({
       />
     </>
   );
-}
+};
 
 const Input = styled.input`
   width: 100%;

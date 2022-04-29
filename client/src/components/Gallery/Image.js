@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { variables } from "../../styles/styled-variables";
-import { Modal, DeleteForm } from "..";
+import { Modal } from "..";
+import { DeleteForm } from "../Forms/DeleteForm";
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
 
-const Image = ({ image }) => {
+export const Image = ({ image }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     user: {
@@ -37,8 +38,6 @@ const Image = ({ image }) => {
     </>
   );
 };
-
-export default Image;
 
 const Wrapper = styled.figure`
   align-self: start;

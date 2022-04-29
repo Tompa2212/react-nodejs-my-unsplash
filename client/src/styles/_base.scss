@@ -19,13 +19,16 @@ body {
   font-size: 1.6rem;
   font-family: "Noto Sans", sans-serif;
   color: $textColor;
-  
 }
 
 .container {
   width: 92%;
   max-width: 148rem;
   margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .d-flex {
@@ -38,3 +41,8 @@ p {
   line-height: 1.5;
 }
 
+@mixin d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Image } from "..";
+import { Image } from "./Image";
 
-const ImageGalleryColumn = ({ images }) => {
+export const ImageGalleryColumn = ({ images }) => {
   if (!images) {
     return null;
   }
@@ -22,5 +22,3 @@ const Wrapper = styled.section`
   grid-template-columns: minmax(0, 1fr);
   row-gap: 2rem;
 `;
-
-export default ImageGalleryColumn;

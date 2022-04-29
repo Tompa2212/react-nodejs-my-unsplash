@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { base_url } from "../request_urls";
-import { TextInput } from ".";
-import { useAuth } from "../context/auth";
+import { base_url } from "../../request_urls";
+import { TextInput } from "../Inputs";
+import { useAuth } from "../../context/auth";
 
 const initialState = {
   img_desc: "",
   img_url: "",
 };
 
-export default function UploadForm({ setIsModalOpen }) {
+export const UploadForm = ({ setIsModalOpen }) => {
   const [formData, setFormData] = useState(initialState);
   const {
     user: {
@@ -80,7 +80,7 @@ export default function UploadForm({ setIsModalOpen }) {
       </form>
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   h3 {

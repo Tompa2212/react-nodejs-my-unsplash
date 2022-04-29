@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import { ImageGalleryColumn } from "..";
-export default function Gallery({ images, numOfColumns }) {
+import { ImageGalleryColumn } from "./ImageGalleryColumn";
+export const Gallery = ({ images, numOfColumns }) => {
   const threeColumnImages = useMemo(() => {
     const numOfImages = images.length;
     const imagesPerColumn = Math.ceil(numOfImages / numOfColumns);
@@ -27,9 +27,11 @@ export default function Gallery({ images, numOfColumns }) {
       ))}
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.section`
+  margin: 0 auto;
+
   @media screen and (min-width: 500px) {
     padding: 3rem 0;
     display: grid;

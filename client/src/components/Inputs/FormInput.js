@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { variables } from "../../styles/styled-variables";
 
-export default function FormInput({ type, placeholder, id, name, value, onChange }) {
+export const FormInput = ({ type, placeholder, id, name, value, onChange }) => {
   return (
     <Wrapper>
       <Input
@@ -15,7 +15,7 @@ export default function FormInput({ type, placeholder, id, name, value, onChange
       />
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   margin-bottom: 2rem;

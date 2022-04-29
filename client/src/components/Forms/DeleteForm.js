@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { TextInput } from ".";
+import { TextInput } from "../Inputs";
 
-export default function DeleteForm({ setIsModalOpen }) {
+export const DeleteForm = ({ setIsModalOpen }) => {
   return (
     <Wrapper>
       <h3>Are you sure?</h3>
@@ -32,7 +32,7 @@ export default function DeleteForm({ setIsModalOpen }) {
       </form>
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   h3 {

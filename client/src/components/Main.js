@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Gallery } from ".";
+import { Gallery } from "./Gallery/Gallery";
 import { useImages } from "../context/images";
 import { useDebounce } from "../hooks/useDebounce";
 
@@ -15,7 +15,7 @@ const determineNumOfColumns = (width) => {
 };
 
 export default function Main() {
-  const { images } = useImages();
+  const { images, images_loading } = useImages();
   const [numOfColumns, setNumOfColumns] = useState(() =>
     determineNumOfColumns(window.innerWidth)
   );
@@ -29,6 +29,14 @@ export default function Main() {
 
     return () => window.removeEventListener("resize", resizeEvent);
   }, [debouncedResizeEvent]);
+
+  if (images_loading) {
+    return (
+      <h2 className="text-center" style={{ fontSize: "3rem", marginTop: "2rem" }}>
+        Loading...
+      </h2>
+    );
+  }
 
   return (
     <main>

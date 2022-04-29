@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { FormInput } from "../components";
+import { FormInput } from "../components/Inputs";
 import { useAuth } from "../context/auth";
 import auth_background from "../images/auth_background.jpg";
 import { variables } from "../styles/styled-variables";
