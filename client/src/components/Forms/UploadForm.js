@@ -1,69 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { base_url } from "../../request_urls";
-import { TextInput } from "../Inputs";
 import { useAuth } from "../../context/auth";
+import { bridge } from "../../schema/bridge";
+import { uploadImageSchema } from "../../schema/uploadImageSchema";
+import { AutoField, AutoForm } from "uniforms-unstyled";
 
-const initialState = {
-  img_desc: "",
-  img_url: "",
-};
+const schema = bridge(uploadImageSchema);
 
 export const UploadForm = ({ setIsModalOpen }) => {
-  const [formData, setFormData] = useState(initialState);
   const {
-    user: {
-      token,
-      user: { id },
-    },
+    user: { token },
   } = useAuth();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleSubmit = async (model) => {
+    console.log(model);
 
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const { img_desc, img_url } = formData;
-
-    if (!img_desc || !img_url) {
-      return;
-    }
-
-    const resp = await axios.post(base_url, formData, {
+    const resp = await axios.post(base_url, model, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    if (resp.status === 201) {
+      alert("Image created");
+    }
   };
+
   return (
-    <Wrapper>
-      <h3>Add a new photo</h3>
-      <form onSubmit={handleSubmit}>
-        <figure className="form-control">
-          <TextInput
-            name="img_desc"
-            id="img_desc"
-            placeholder="Image description"
-            label="Label"
-            value={formData["img_desc"]}
-            onChange={handleChange}
-          />
-        </figure>
-        <figure className="form-control">
-          <TextInput
-            name="img_url"
-            id="img_urlurl"
-            placeholder="https://images.unsplash.com/photo-1571035330093-fd..."
-            label="Photo URL"
-            value={formData["img_url"]}
-            onChange={handleChange}
-          />
-        </figure>
+    <AutoForm
+      schema={schema}
+      validate="onChangeAfterSubmit"
+      onSubmit={(model) => handleSubmit(model)}
+    >
+      <Wrapper>
+        <h3>Add a new photo</h3>
+        <AutoField
+          name="img_desc"
+          placeholder="Image description"
+          label="Image description"
+        />
+        <AutoField
+          name="img_url"
+          placeholder="https://images.unsplash.com/photo-1571035330093-fd..."
+          label="Photo URL"
+        />
         <div className="btns">
           <button
             type="reset"
@@ -73,27 +55,18 @@ export const UploadForm = ({ setIsModalOpen }) => {
           >
             Cancel
           </button>
-          <button typ="submit" className="btn btn--green">
+          <button type="submit" className="btn btn--green">
             Submit
           </button>
         </div>
-      </form>
-    </Wrapper>
+      </Wrapper>
+    </AutoForm>
   );
 };
 
 const Wrapper = styled.div`
   h3 {
     margin-bottom: 2rem;
-  }
-
-  .form-control {
-    margin-bottom: 2rem;
-
-    label {
-      display: block;
-      margin-bottom: 0.7rem;
-    }
   }
 
   .btns {

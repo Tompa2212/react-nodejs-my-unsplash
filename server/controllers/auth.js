@@ -24,7 +24,9 @@ const register = async (req, res, next) => {
     const user = await User.create({ ...req.body, password: hashedPassword });
     const token = createJWT(user);
 
-    res.status(200).json({ user: user.username, token });
+    res
+      .status(StatusCodes.OK)
+      .json({ user: { username: user.username, id: user._id }, token });
   } catch (error) {
     next(error);
   }

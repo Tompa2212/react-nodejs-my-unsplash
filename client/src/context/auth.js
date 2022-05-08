@@ -1,9 +1,11 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useReducer, useCallback } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { getLocalStorage } from "../util/getLocalStorage";
 import axios from "axios";
-const url = "http://localhost:3000/api/v1/unsplash/auth/login";
+
+const login_url = "http://localhost:3000/api/v1/unsplash/auth/login";
+const register_url = "http://localhost:3000/api/v1/unsplash/auth/register";
 
 const AuthContext = React.createContext();
 
@@ -22,6 +24,7 @@ const authReducer = (state, action) => {
     case "LOGIN_SUCCESFULL": {
       const { user, setLocalStorage } = action.payload;
       setLocalStorage(user);
+
       return { ...initialState, user };
     }
 
@@ -31,6 +34,7 @@ const authReducer = (state, action) => {
 
     case "SIGNOUT": {
       action.payload(null);
+
       return { ...initialState };
     }
 
@@ -45,35 +49,60 @@ export const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const loginUser = async (url, login_credentials) => {
-    try {
-      dispatch({ type: "LOGIN_START" });
+  const loginUser = useCallback(
+    async (login_credentials) => {
+      try {
+        dispatch({ type: "LOGIN_START" });
 
-      const user = await axios.post(url, login_credentials);
+        const user = await axios.post(login_url, login_credentials);
 
-      if (user.status === 400 || user.status === 401) {
-        throw new Error(user.data.msg);
+        if (user.status === 400 || user.status === 401) {
+          throw new Error(user.data.msg);
+        }
+
+        dispatch({
+          type: "LOGIN_SUCCESFULL",
+          payload: { user: user.data, setLocalStorage },
+        });
+        //navigate to home page after login
+        navigate("/");
+      } catch (error) {
+        dispatch({ type: "LOGIN_FAILED" });
       }
+    },
+    [navigate, setLocalStorage]
+  );
 
-      dispatch({
-        type: "LOGIN_SUCCESFULL",
-        payload: { user: user.data, setLocalStorage },
-      });
-      //navigate to home page after login
-      navigate("/");
-    } catch (error) {
-      dispatch({ type: "LOGIN_FAILED" });
-    }
-  };
+  const reqisterUser = useCallback(
+    async (accountInfo) => {
+      try {
+        dispatch({ type: "LOGIN_START" });
+
+        const createdUser = await axios.post(register_url, accountInfo);
+
+        if (createdUser.status === 400 || createdUser.status === 401) {
+          throw new Error(createdUser.data.msg);
+        }
+
+        dispatch({
+          type: "LOGIN_SUCCESFULL",
+          payload: { user: createdUser.data, setLocalStorage },
+        });
+        navigate("/");
+      } catch (error) {
+        dispatch({ type: "LOGIN_FAILED" });
+      }
+    },
+    [setLocalStorage, navigate]
+  );
 
   const signOut = async () => {
     dispatch({ type: "SIGNOUT", payload: setLocalStorage });
     navigate("/login");
   };
 
-  console.log(state);
   return (
-    <AuthContext.Provider value={{ ...state, loginUser, url, signOut }}>
+    <AuthContext.Provider value={{ ...state, reqisterUser, loginUser, signOut }}>
       {children}
     </AuthContext.Provider>
   );

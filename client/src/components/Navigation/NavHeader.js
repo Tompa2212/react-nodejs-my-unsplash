@@ -3,7 +3,7 @@ import unsplash_logo from "../../images/unsplash_logo.svg";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useDebouncedValue } from "../../hooks/useDebouncedValue";
 import { useImages } from "../../context/images";
-import { SearchInput } from "../Inputs";
+import { SearchInput } from "../Fields";
 
 export const NavHeader = ({ setNavOpened }) => {
   const [searchValue, setSearchValue] = useState("");

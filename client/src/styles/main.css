@@ -49,6 +49,66 @@
   transform: none;
 }
 
+.form-control {
+  padding-bottom: 2.2rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.form-control .form-label {
+  display: block;
+  margin-bottom: 0.7rem;
+}
+
+.form-control .form-error {
+  font-size: 1.4rem;
+  color: #eb5757;
+  position: absolute;
+  bottom: 0;
+  left: 3px;
+}
+
+.form-control .form-login-input {
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  border: 1px solid #bdbdbd;
+  border-radius: 2px;
+  padding: 0.9rem;
+  outline: 2px solid transparent;
+}
+
+.form-control .form-login-input::placeholder {
+  font-size: 1.4rem;
+}
+
+.form-control .form-login-input:focus {
+  outline-color: #3db46d;
+  border-color: transparent;
+}
+
+.submit-cont {
+  text-align: center;
+}
+
+.submit-cont .form-submit-btn {
+  cursor: pointer;
+  display: block;
+  color: #fff;
+  padding: 0.7rem 0;
+  background-color: #3db46d;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  border: transparent;
+  border-radius: 2px;
+  transition: background-color 150ms ease;
+}
+
+.submit-cont .form-submit-btn:disabled {
+  background-color: #bdbdbd;
+}
+
 *,
 *::after,
 *::before {

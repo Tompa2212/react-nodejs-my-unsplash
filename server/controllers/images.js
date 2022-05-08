@@ -27,8 +27,6 @@ const uploadImage = async (req, res, next) => {
   try {
     const { userId } = req.user;
 
-    console.log(userId);
-
     const image = await Images.create({ ...req.body, user_id: userId });
     res.status(StatusCodes.CREATED).json({ image });
   } catch (error) {

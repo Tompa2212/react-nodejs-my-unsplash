@@ -1,48 +1,48 @@
 .btn {
-    cursor: pointer;
-    display: block;
-    padding: 1rem;
+  cursor: pointer;
+  display: block;
+  padding: 1rem;
+  color: $white;
+  border: transparent;
+  border-radius: 1.2rem;
+  font-size: inherit;
+  font-family: inherit;
+  transition: transform 100ms ease;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(2px);
+  }
+
+  &--green {
+    background: $btnGreen;
     color: $white;
-    border: transparent;
-    border-radius: 1.2rem;
-    font-size: inherit;
-    font-family: inherit;
-    transition: transform 100ms ease;
-    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &--red {
+    background: $btnRed;
+    color: $white;
+  }
+
+  &--cancel {
+    background: transparent;
+    box-shadow: none;
+    color: $textColorLight;
+  }
+
+  &--red--outline {
+    background: transparent;
+    color: $btnRed;
+    border: 1px solid $btnRed;
+  }
+
+  &--sign-out {
+    background: transparent;
+    box-shadow: none;
+    color: $textColor;
 
     &:hover {
-        transform: translateY(2px);
+      transform: none;
     }
-
-    &--green {
-        background: $btnGreen;
-        color: $white;
-    }
-
-    &--red {
-        background: $btnRed;
-        color: $white;
-    }
-
-    &--cancel {
-        background: transparent;
-        box-shadow: none;
-        color: $textColorLight;
-    }
-
-    &--red--outline {
-        background: transparent;
-        color: $btnRed;
-        border: 1px solid $btnRed;
-    }
-
-    &--sign-out {
-        background: transparent;
-        box-shadow: none;
-        color: $textColor;
-
-        &:hover {
-            transform: none;
-        }
-    }
+  }
 }

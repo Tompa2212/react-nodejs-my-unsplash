@@ -1,70 +1,56 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { FormInput } from "../components/Inputs";
 import { useAuth } from "../context/auth";
 import auth_background from "../images/auth_background.jpg";
 import { variables } from "../styles/styled-variables";
 import { Link } from "react-router-dom";
+import { AutoForm, AutoField } from "uniforms-unstyled";
+import { SubmitField } from "../components/Fields/SubmitField";
+import { bridge } from "../schema/bridge";
+import { loginSchema } from "../schema/loginSchema";
 
-const initialState = {
-  username: "",
-  password: "",
-};
+const schema = bridge(loginSchema);
+const authError = { message: "Invalid username or password" };
+
 export default function Login() {
-  const [loginInfo, setLoginInfo] = useState(initialState);
-  const { loginUser, url, loading } = useAuth();
+  const { loginUser, error } = useAuth();
 
-  const handleChange = (e) => {
-    const { value, name } = e.target;
-
-    setLoginInfo((prev) => ({ ...prev, [name]: value }));
+  const handleSubmit = async (model) => {
+    loginUser(model);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { username, password } = loginInfo;
-    loginUser(url, { username, password });
-  };
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
   return (
     <Wrapper>
       <div className="leftStyle"></div>
       <div className="rightStyle">
         <div className="content">
-          <h1>My Unsplash</h1>
-          <h2>Upload and share your favorite pictures and memories.</h2>
-          <form>
-            <FormInput
-              type="text"
-              placeholder={"Username"}
-              id="username"
-              value={loginInfo.username}
+          <div className="title">
+            <h1>My Unsplash</h1>
+            <h2>Upload and share your favorite pictures and memories.</h2>
+          </div>
+          <AutoForm schema={schema} onSubmit={(model) => handleSubmit(model)}>
+            <AutoField
               name="username"
-              onChange={handleChange}
+              className="form-login-input"
+              placeholder="Username"
+              authError={error ? authError : null}
             />
-            <FormInput
-              type="password"
-              placeholder={"Password"}
-              id="password"
-              value={loginInfo.password}
+            <AutoField
               name="password"
-              onChange={handleChange}
+              className="form-login-input"
+              placeholder="Password"
+              authError={error ? authError : null}
             />
             <div className="submit-cont">
-              <button type="submit" className="font-inherit" onClick={handleSubmit}>
-                Login
-              </button>
+              <SubmitField className="font-inherit form-submit-btn" title="Login" />
               <p>
                 Don't have an account?{" "}
                 <Link to="/register" className="register-link">
-                  Register
+                  Sign up
                 </Link>
               </p>
             </div>
-          </form>
+          </AutoForm>
         </div>
       </div>
     </Wrapper>
@@ -74,11 +60,11 @@ export default function Login() {
 const Wrapper = styled.section`
   margin: 0;
   height: 100vh;
-  width: 100wh;
+  width: 100vw;
 
   @media screen and (min-width: 900px) {
     display: grid;
-    grid-template-columns: 40% 1fr;
+    grid-template-columns: 45% 1fr;
   }
 
   .leftStyle {
@@ -88,7 +74,7 @@ const Wrapper = styled.section`
   }
 
   .rightStyle {
-    padding-top: 5rem;
+    padding-top: 3rem;
   }
 
   .content {
@@ -99,7 +85,7 @@ const Wrapper = styled.section`
 
   h1 {
     text-align: center;
-    font-size: 3rem;
+    font-size: 3.3rem;
     margin-bottom: 2rem;
     margin: 2rem auto;
   }
@@ -107,29 +93,13 @@ const Wrapper = styled.section`
   h2 {
     margin-bottom: 3rem;
     font-weight: 400;
+    font-size: 2rem;
   }
 
   form {
     text-align: left;
     width: 100%;
     margin: 0 auto;
-
-    .submit-cont {
-      text-align: center;
-
-      button {
-        cursor: pointer;
-        display: block;
-        color: ${variables.$white};
-        padding: 0.7rem 0;
-        background: ${variables.$btnGreen};
-        width: 100%;
-        margin: 0 auto;
-        margin-bottom: 1rem;
-        border: transparent;
-        border-radius: 2px;
-      }
-    }
 
     .register-link:link,
     .register-link:visited {

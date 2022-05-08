@@ -1,0 +1,59 @@
+.form-control {
+  padding-bottom: 2.2rem;
+  margin-bottom: 1rem;
+  position: relative;
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.7rem;
+  }
+
+  .form-error {
+    font-size: 1.4rem;
+    color: $btnRed;
+    position: absolute;
+    bottom: 0;
+    left: 3px;
+  }
+
+  .form-login-input {
+    font-family: inherit;
+    font-size: inherit;
+    width: 100%;
+    border: 1px solid $textColorLight;
+    border-radius: 2px;
+    padding: 0.9rem;
+    outline: 2px solid transparent;
+
+    &::placeholder {
+      font-size: 1.4rem;
+    }
+
+    &:focus {
+      outline-color: $btnGreen;
+      border-color: transparent;
+    }
+  }
+}
+
+.submit-cont {
+  text-align: center;
+
+  .form-submit-btn {
+    cursor: pointer;
+    display: block;
+    color: $white;
+    padding: 0.7rem 0;
+    background-color: $btnGreen;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    border: transparent;
+    border-radius: 2px;
+    transition: background-color 150ms ease;
+
+    &:disabled {
+      background-color: $textColorLight;
+    }
+  }
+}

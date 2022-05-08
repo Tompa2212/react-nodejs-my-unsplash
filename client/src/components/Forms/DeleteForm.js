@@ -1,21 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import { TextInput } from "../Inputs";
+import { AutoForm, AutoField } from "uniforms-unstyled";
+import { bridge } from "../../schema/bridge";
+import { deleteImageSchema } from "../../schema/deleteImageSchema";
+
+const schema = bridge(deleteImageSchema);
 
 export const DeleteForm = ({ setIsModalOpen }) => {
   return (
-    <Wrapper>
-      <h3>Are you sure?</h3>
-      <form>
-        <figure className="form-control">
-          <TextInput
-            name="pass"
-            id="pass"
-            placeholder="Password"
-            label="Password"
-            type="password"
-          />
-        </figure>
+    <AutoForm schema={schema}>
+      <Wrapper>
+        <h3>Are you sure?</h3>
+        <AutoField
+          name="password"
+          placeholder="Password"
+          autocomplete="new-password"
+        />
         <div className="btns">
           <button
             type="reset"
@@ -29,23 +29,14 @@ export const DeleteForm = ({ setIsModalOpen }) => {
             Delete
           </button>
         </div>
-      </form>
-    </Wrapper>
+      </Wrapper>
+    </AutoForm>
   );
 };
 
 const Wrapper = styled.div`
   h3 {
     margin-bottom: 2rem;
-  }
-
-  .form-control {
-    margin-bottom: 2rem;
-
-    label {
-      display: block;
-      margin-bottom: 0.7rem;
-    }
   }
 
   .btns {
