@@ -16,7 +16,7 @@ const determineNumOfColumns = (width) => {
 
 export default function Main() {
   const { images, images_loading } = useImages();
-  const [numOfColumns, setNumOfColumns] = useState(() =>
+  const [numOfColumns, setNumOfColumns] = useState(
     determineNumOfColumns(window.innerWidth)
   );
 
@@ -40,11 +40,7 @@ export default function Main() {
 
   return (
     <main>
-      {images.map((imageBlock, index) => {
-        return (
-          <Gallery images={imageBlock} numOfColumns={numOfColumns} key={index} />
-        );
-      })}
+      <Gallery images={images} numOfColumns={numOfColumns} />
     </main>
   );
 }

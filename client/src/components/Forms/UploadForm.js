@@ -6,6 +6,7 @@ import { useAuth } from "../../context/auth";
 import { bridge } from "../../schema/bridge";
 import { uploadImageSchema } from "../../schema/uploadImageSchema";
 import { AutoField, AutoForm } from "uniforms-unstyled";
+import { useImages } from "../../context/images";
 
 const schema = bridge(uploadImageSchema);
 
@@ -13,10 +14,9 @@ export const UploadForm = ({ setIsModalOpen }) => {
   const {
     user: { token },
   } = useAuth();
+  const { triggerRefresh } = useImages();
 
   const handleSubmit = async (model) => {
-    console.log(model);
-
     const resp = await axios.post(base_url, model, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -25,6 +25,7 @@ export const UploadForm = ({ setIsModalOpen }) => {
 
     if (resp.status === 201) {
       alert("Image created");
+      triggerRefresh({});
     }
   };
 

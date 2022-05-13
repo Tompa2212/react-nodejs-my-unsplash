@@ -60,4 +60,4 @@ const Input = styled.input`
   border-radius: 1.2rem;
 `;
 
-export default connectField(TextInput, { initialValue: true });
+export default connectField(TextInput, { initialValue: false });

@@ -11,10 +11,12 @@ const images_reducer = (state, action) => {
   }
 
   if (action.type === GET_IMAGES_SUCCESS) {
+    const { images, concat } = action.payload;
+
     return {
       ...state,
       images_loading: false,
-      images: [action.payload],
+      images: concat ? [...state.images, ...images] : images,
     };
   }
 

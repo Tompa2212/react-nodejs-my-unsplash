@@ -21,7 +21,6 @@ export const registerSchema = {
     },
     confirmPassword: {
       type: "string",
-      minLength: 6,
       const: { $data: "1/password" },
       uniforms: { type: "password", component: TextInput },
     },

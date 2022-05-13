@@ -4,16 +4,35 @@ import { Modal } from "..";
 import { DeleteForm } from "../Forms/DeleteForm";
 import { useState } from "react";
 import { useAuth } from "../../context/auth";
+import axios from "axios";
+import { base_url } from "../../request_urls";
+import { useImages } from "../../context/images";
 
 export const Image = ({ image }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     user: {
       user: { id },
+      token,
     },
   } = useAuth();
+  const { triggerRefresh } = useImages();
 
-  const { img_desc, img_url, user_id } = image;
+  const { _id, img_desc, img_url, user_id } = image;
+
+  const onSubmit = async () => {
+    const response = await axios.delete(`${base_url}/${_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log(response);
+    if (response.status === 200) {
+      triggerRefresh();
+      setIsModalOpen(false);
+    }
+  };
 
   return (
     <>
@@ -32,13 +51,12 @@ export const Image = ({ image }) => {
       {isModalOpen && (
         <Modal
           setOpen={setIsModalOpen}
-          content={<DeleteForm setIsModalOpen={setIsModalOpen} />}
+          content={<DeleteForm setIsModalOpen={setIsModalOpen} onSubmit={onSubmit} />}
         />
       )}
     </>
   );
 };
-
 const Wrapper = styled.figure`
   align-self: start;
   border-radius: 2.4rem;

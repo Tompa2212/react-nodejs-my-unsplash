@@ -17,7 +17,7 @@ export const NavLinks = () => {
           </Link>
         </li>
         <li>
-          <Link to="/" className="nav-link">
+          <Link to="/myImages" className="nav-link">
             My Images
           </Link>
         </li>

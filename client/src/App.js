@@ -23,6 +23,19 @@ function App() {
                 }
               />
             </Route>
+            <Route exact path="/myImages" element={<PrivateRoute />}>
+              <Route
+                exact
+                path="/myImages"
+                element={
+                  <div className="container">
+                    <ImagesProvider>
+                      <Home />
+                    </ImagesProvider>
+                  </div>
+                }
+              />
+            </Route>
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/register" element={<Register />} />
           </Routes>

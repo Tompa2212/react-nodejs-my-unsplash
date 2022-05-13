@@ -1,10 +1,12 @@
 const Images = require("../models/images");
-const { BadRequestError, NotFoundError } = require("../errors");
+const { NotFoundError, UnauthenticatedError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
+const Users = require("../models/users");
+
+const limit = 21;
 
 const getImages = async (req, res, next) => {
   try {
-    const user = req.user.userId;
     const queryObject = {};
 
     let { label } = req.query;
@@ -13,9 +15,35 @@ const getImages = async (req, res, next) => {
       queryObject["$text"] = { $search: label };
     }
 
-    const images = await Images.find(queryObject).limit(21).sort({ createdAt: -1 });
+    const images = await Images.find(queryObject)
+      .limit(limit)
+      .sort({ createdAt: -1 });
 
-    console.log(images);
+    res.status(StatusCodes.OK).json({ data: images, numOfHits: images.length });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getUserImages = async (req, res, next) => {
+  try {
+    const user_id = req.user.userId;
+
+    if (user_id !== req.params.userId) {
+      return;
+    }
+    const queryObject = {
+      user_id,
+    };
+    const { label } = req.query;
+
+    if (label) {
+      queryObject["$text"] = { $search: label };
+    }
+
+    const images = await Images.find(queryObject)
+      .limit(limit)
+      .sort({ createdAt: -1 });
 
     res.status(StatusCodes.OK).json({ data: images, numOfHits: images.length });
   } catch (error) {
@@ -49,4 +77,4 @@ const deleteImage = async (req, res, next) => {
   }
 };
 
-module.exports = { getImages, uploadImage, deleteImage };
+module.exports = { getImages, getUserImages, uploadImage, deleteImage };

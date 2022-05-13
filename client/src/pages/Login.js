@@ -64,7 +64,7 @@ const Wrapper = styled.section`
 
   @media screen and (min-width: 900px) {
     display: grid;
-    grid-template-columns: 45% 1fr;
+    grid-template-columns: 40% 1fr;
   }
 
   .leftStyle {

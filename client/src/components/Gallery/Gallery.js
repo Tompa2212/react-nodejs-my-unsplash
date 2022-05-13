@@ -1,8 +1,12 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
 import { ImageGalleryColumn } from "./ImageGalleryColumn";
+import { AiOutlinePlus } from "react-icons/ai";
+
+const imagesPerGallery = 21;
+
 export const Gallery = ({ images, numOfColumns }) => {
-  const threeColumnImages = useMemo(() => {
+  const columnImages = useMemo(() => {
     const numOfImages = images.length;
     const imagesPerColumn = Math.ceil(numOfImages / numOfColumns);
 
@@ -21,11 +25,18 @@ export const Gallery = ({ images, numOfColumns }) => {
   }
 
   return (
-    <Wrapper>
-      {threeColumnImages.map((imageColumn, index) => (
-        <ImageGalleryColumn key={index} images={imageColumn} />
-      ))}
-    </Wrapper>
+    <>
+      <Wrapper>
+        {columnImages.map((imageColumn, index) => (
+          <ImageGalleryColumn key={index} images={imageColumn} />
+        ))}
+      </Wrapper>
+      {images.length % imagesPerGallery === 0 && (
+        <button className="btn btn--load-more">
+          Load More <AiOutlinePlus />
+        </button>
+      )}
+    </>
   );
 };
 

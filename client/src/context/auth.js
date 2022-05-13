@@ -96,7 +96,7 @@ export const AuthProvider = ({ children }) => {
     [setLocalStorage, navigate]
   );
 
-  const signOut = async () => {
+  const signOut = () => {
     dispatch({ type: "SIGNOUT", payload: setLocalStorage });
     navigate("/login");
   };

@@ -13,8 +13,13 @@
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
 }
 
-.btn:hover {
+.btn:hover:not(:disabled) {
   transform: translateY(2px);
+}
+
+.btn:disabled {
+  cursor: default;
+  background-color: #bdbdbd;
 }
 
 .btn--green {
@@ -47,6 +52,31 @@
 
 .btn--sign-out:hover {
   transform: none;
+}
+
+.btn--load-more {
+  padding: 1rem 4rem;
+  margin: 0 auto 3rem auto;
+  color: #4f4f4f;
+  border: 2px solid #3db46d;
+  background-color: transparent;
+  font-weight: 700;
+  border-radius: 2rem;
+  transition: transform 100ms ease;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn--load-more:hover {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn--load-more svg {
+  fill: currentColor;
+  width: 2rem;
+  height: 1.8rem;
 }
 
 .form-control {
@@ -109,6 +139,10 @@
   background-color: #bdbdbd;
 }
 
+.submit-cont .form-submit-btn:not(:disabled):hover {
+  background-color: #348153;
+}
+
 *,
 *::after,
 *::before {
@@ -142,7 +176,7 @@ body {
 .d-flex {
   display: flex;
   align-items: center;
-  justify-content: space-between !important;
+  justify-content: space-between;
 }
 
 p {

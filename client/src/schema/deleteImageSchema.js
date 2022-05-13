@@ -4,9 +4,9 @@ export const deleteImageSchema = {
   title: "Delete Image",
   type: "object",
   properties: {
-    password: {
+    username: {
       type: "string",
-      uniforms: { type: "password", component: TextInput },
+      uniforms: { component: TextInput },
     },
   },
   required: ["password"],

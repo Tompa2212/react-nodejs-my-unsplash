@@ -10,8 +10,13 @@
   transition: transform 100ms ease;
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
 
-  &:hover {
+  &:hover:not(:disabled) {
     transform: translateY(2px);
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: $textColorLight;
   }
 
   &--green {
@@ -43,6 +48,32 @@
 
     &:hover {
       transform: none;
+    }
+  }
+
+  &--load-more {
+    padding: 1rem 4rem;
+    margin: 0 auto 3rem auto;
+    color: $textColor;
+    border: 2px solid $btnGreen;
+    background-color: transparent;
+    font-weight: 700;
+    border-radius: 2rem;
+    transition: transform 100ms ease;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &:hover {
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    svg {
+      fill: currentColor;
+      width: 2rem;
+      height: 1.8rem;
     }
   }
 }

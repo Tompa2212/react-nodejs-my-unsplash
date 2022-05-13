@@ -55,5 +55,9 @@
     &:disabled {
       background-color: $textColorLight;
     }
+
+    &:not(:disabled):hover {
+      background-color: $btnGreenDark;
+    }
   }
 }
