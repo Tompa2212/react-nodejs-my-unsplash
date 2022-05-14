@@ -4,7 +4,7 @@ import { useAuth } from "../../context/auth";
 import { UploadForm } from "../Forms/UploadForm";
 import { Modal } from "../";
 
-export const NavLinks = () => {
+export const NavLinks = ({ setNavOpened }) => {
   const { signOut } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -12,12 +12,16 @@ export const NavLinks = () => {
     <>
       <ul className="nav-links">
         <li>
-          <Link to="/" className="nav-link">
+          <Link to="/" className="nav-link" onClick={() => setNavOpened(false)}>
             All Images
           </Link>
         </li>
         <li>
-          <Link to="/myImages" className="nav-link">
+          <Link
+            to="/myImages"
+            className="nav-link"
+            onClick={() => setNavOpened(false)}
+          >
             My Images
           </Link>
         </li>

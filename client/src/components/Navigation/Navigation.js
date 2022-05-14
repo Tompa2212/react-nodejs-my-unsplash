@@ -7,7 +7,7 @@ export const Navigation = () => {
     <nav className="nav">
       <NavHeader setNavOpened={setNavOpened} />
       <div className={`nav-center ${navOpened ? "show" : ""}`}>
-        <NavLinks />
+        <NavLinks setNavOpened={setNavOpened} />
       </div>
     </nav>
   );

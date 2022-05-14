@@ -24,8 +24,8 @@ export const UploadForm = ({ setIsModalOpen }) => {
     });
 
     if (resp.status === 201) {
-      alert("Image created");
-      triggerRefresh({});
+      triggerRefresh();
+      setIsModalOpen(false);
     }
   };
 

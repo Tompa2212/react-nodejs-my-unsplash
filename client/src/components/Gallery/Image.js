@@ -37,7 +37,7 @@ export const Image = ({ image }) => {
   return (
     <>
       <Wrapper>
-        <img src={img_url} alt="slika" />
+        <img src={img_url} alt="slika" loading="lazy" width={500} height={500} />
         <div className="img-actions">
           <button
             className={id === user_id ? "btn" : "disabled"}
@@ -75,8 +75,9 @@ const Wrapper = styled.figure`
 
   img {
     display: block;
-    width: 100%;
-    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: attr(width) / attr(height);
     object-fit: cover;
   }
 
